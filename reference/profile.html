@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的 - 塔塔巫</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* 继承原始样式 */
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1025 0%, #2c1c42 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: rgba(26, 16, 37, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .profile-container {
+            padding: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #673ab7, #9c27b0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            border: 2px solid goldenrod;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .avatar::after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            border-radius: 50%;
+            background-color: rgba(26, 16, 37, 0.2);
+            top: -30%;
+            right: -30%;
+        }
+        
+        .user-name {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .user-level {
+            font-size: 0.9rem;
+            color: goldenrod;
+            background-color: rgba(218, 165, 32, 0.1);
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+        
+        .user-stats {
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-top: 8px;
+        }
+        
+        .usage-stats {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .usage-title {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .usage-bar {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        
+        .usage-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #9c27b0, #673ab7);
+            border-radius: 4px;
+        }
+        
+        .usage-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #bbb;
+        }
+        
+        .upgrade-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .upgrade-title {
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .upgrade-description {
+            text-align: center;
+            color: #bbb;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .upgrade-button {
+            background: linear-gradient(90deg, #9c27b0, #673ab7);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        /* 新的垂直菜单样式 */
+        .menu-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 80px; /* 为底部导航留出空间 */
+        }
+        
+        .menu-title {
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            color: #aaa;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 垂直列表替代网格 */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .menu-option:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            color: goldenrod;
+        }
+        
+        .option-label {
+            font-size: 0.95rem;
+            color: white;
+        }
+        
+        .menu-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-desc {
+            font-size: 0.8rem;
+            color: #888;
+            margin-right: 8px;
+        }
+        
+        .option-arrow {
+            font-size: 1.2rem;
+            color: #888;
+        }
+        
+        /* 底部导航样式 */
+        .app-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(26, 16, 37, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 0;
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.8rem;
+            padding: 5px 0;
+        }
+        
+        .nav-item.active {
+            color: goldenrod;
+        }
+        
+        .nav-item svg {
+            margin-bottom: 3px;
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* 登录/注册表单样式 */
+        .auth-container {
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            font-size: 1rem;
+            color: #aaa;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .auth-tab.active {
+            color: goldenrod;
+            border-bottom: 2px solid goldenrod;
+        }
+        
+        .auth-form {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.95rem;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #9c27b0, #673ab7);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .auth-message {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .auth-message.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+        
+        .auth-message.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-title">我的</div>
+        </header>
+        
+        <main id="main-content">
+            <!-- 内容将通过JavaScript动态加载 -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>加载中...</p>
+            </div>
+        </main>
+        
+        <footer class="app-footer">
+            <nav class="bottom-nav">
+                <a class="nav-item" href="index.html">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/>
+                    </svg>
+                    <span>探索</span>
+                </a>
+                <a class="nav-item" href="#" onclick="event.preventDefault();">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                        <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/>
+                    </svg>
+                    <span>达人解牌</span>
+                </a>
+                <a class="nav-item active">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>我的</span>
+                </a>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 获取主内容容器
+            const mainContent = document.getElementById('main-content');
+            
+            try {
+                // 尝试获取用户信息
+                const authResult = await API.auth.checkStatus();
+                if (authResult.success && authResult.authenticated) {
+                    // 显示已登录用户界面
+                    showUserProfile(authResult.user);
+                } else {
+                    // 显示登录/注册表单
+                    showAuthForms();
+                }
+            } catch (error) {
+                console.error('获取用户状态失败:', error);
+                // 显示登录/注册表单
+                showAuthForms();
+            }
+            
+            /**
+             * 显示已登录用户的个人资料界面
+             */
+            async function showUserProfile(user) {
+                // 尝试获取会员信息
+                let membershipInfo = {
+                    membership_level: 0,
+                    membership_name: '免费用户',
+                    daily_requests: 0,
+                    daily_limit: 5
+                };
+                
+                try {
+                    const membershipResult = await API.membership.getInfo();
+                    if (membershipResult.success) {
+                        membershipInfo = membershipResult.membership;
+                    }
+                } catch (err) {
+                    console.error('获取会员信息失败:', err);
+                }
+                
+                // 计算使用进度百分比
+                const usagePercent = Math.min(100, (membershipInfo.daily_requests / membershipInfo.daily_limit) * 100);
+                
+                // 渲染用户界面 - 使用垂直列表替代原来的网格
+                mainContent.innerHTML = `
+                    <div class="profile-container">
+                        <div class="user-profile">
+                            <div class="avatar">
+                                <span id="avatar-initial">${user.username.charAt(0).toUpperCase()}</span>
+                            </div>
+                            <h2 class="user-name" id="user-name">${user.username}</h2>
+                            <div class="user-level">${membershipInfo.membership_name}</div>
+                            <div class="user-stats">塔罗:${membershipInfo.daily_requests || 0}次 星盘:1次</div>
+                        </div>
+                        
+                        <div class="usage-stats">
+                            <div class="usage-title">今日解牌次数</div>
+                            <div class="usage-bar">
+                                <div class="usage-progress" style="width: ${usagePercent}%;"></div>
+                            </div>
+                            <div class="usage-text">
+                                <span>已用 <span id="tarot-count">${membershipInfo.daily_requests || 0}</span> 次</span>
+                                <span>共 <span id="tarot-limit">${membershipInfo.daily_limit || 5}</span> 次</span>
+                            </div>
+                        </div>
+                        
+                        <div class="upgrade-card">
+                            <h3 class="upgrade-title">升级会员</h3>
+                            <p class="upgrade-description">解锁无限解牌次数、专属牌组和更多高级功能</p>
+                            <button class="upgrade-button" id="upgrade-btn">立即升级</button>
+                        </div>
+                        
+                        <div class="menu-section">
+                            <div class="menu-title">我的服务</div>
+                            <div class="menu-list">
+                                <!-- 提问记录 -->
+                                <a href="history.html" class="menu-option" id="history-option">
+                                    <div class="menu-left">
+                                        <svg class="option-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                                        </svg>
+                                        <span class="option-label">提问记录</span>
+                                    </div>
+                                    <div class="menu-right">
+                                        <span class="option-desc">查看所有记录</span>
+                                        <span class="option-arrow">›</span>
+                                    </div>
+                                </a>
+                                
+                                <!-- 塔塔笔记 -->
+                                <a href="#" class="menu-option" id="notes-option">
+                                    <div class="menu-left">
+                                        <svg class="option-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                                        </svg>
+                                        <span class="option-label">塔塔笔记</span>
+                                    </div>
+                                    <div class="menu-right">
+                                        <span class="option-desc">记录您的见解</span>
+                                        <span class="option-arrow">›</span>
+                                    </div>
+                                </a>
+                                
+                                <!-- 邀请好友 -->
+                                <a href="#" class="menu-option" id="invite-option">
+                                    <div class="menu-left">
+                                        <svg class="option-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                        <span class="option-label">邀请好友</span>
+                                    </div>
+                                    <div class="menu-right">
+                                        <span class="option-desc">邀请得解答次数</span>
+                                        <span class="option-arrow">›</span>
+                                    </div>
+                                </a>
+                                
+                                <!-- 退出登录 -->
+                                <a href="#" class="menu-option" id="logout-btn">
+                                    <div class="menu-left">
+                                        <svg class="option-icon" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/>
+                                        </svg>
+                                        <span class="option-label">退出登录</span>
+                                    </div>
+                                    <div class="menu-right">
+                                        <span class="option-arrow">›</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 添加退出登录事件
+                document.getElementById('logout-btn').addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    if (confirm('确定要退出登录吗？')) {
+                        try {
+                            const result = await API.auth.logout();
+                            if (result.success) {
+                                // 刷新页面
+                                window.location.reload();
+                            } else {
+                                alert(result.message || '退出失败');
+                            }
+                        } catch (error) {
+                            console.error('退出登录错误:', error);
+                            alert('退出失败，请重试');
+                        }
+                    }
+                });
+                
+                // 添加会员升级点击事件
+                document.getElementById('upgrade-btn').addEventListener('click', function() {
+                    window.location.href = 'membership.html';
+                });
+                
+                // 添加笔记点击事件
+                document.getElementById('notes-option').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 如果有相应页面，可以替换为实际URL
+                    alert('塔塔笔记功能即将上线，敬请期待！');
+                });
+                
+                // 添加邀请好友点击事件
+                document.getElementById('invite-option').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 如果API有相应功能，可以调用
+                    if (API.social && typeof API.social.showInviteDialog === 'function') {
+                        API.social.showInviteDialog();
+                    } else {
+                        alert('邀请好友功能即将上线，敬请期待！');
+                    }
+                });
+            }
+            
+            /**
+             * 显示登录/注册表单
+             */
+            function showAuthForms() {
+                mainContent.innerHTML = `
+                    <div class="auth-container">
+                        <div class="auth-tabs">
+                            <div class="auth-tab active" id="login-tab">登录</div>
+                            <div class="auth-tab" id="register-tab">注册</div>
+                        </div>
+                        
+                        <div class="auth-form-container" id="login-form-container">
+                            <form class="auth-form" id="login-form">
+                                <div class="form-group">
+                                    <label class="form-label">用户名</label>
+                                    <input type="text" class="form-input" id="login-username" placeholder="请输入您的用户名" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">密码</label>
+                                    <input type="password" class="form-input" id="login-password" placeholder="请输入您的密码" required>
+                                </div>
+                                <button type="submit" class="form-submit">登录</button>
+                                <div id="login-message" class="auth-message" style="display: none;"></div>
+                            </form>
+                        </div>
+                        
+                        <div class="auth-form-container" id="register-form-container" style="display: none;">
+                            <form class="auth-form" id="register-form">
+                                <div class="form-group">
+                                    <label class="form-label">用户名</label>
+                                    <input type="text" class="form-input" id="register-username" placeholder="请创建用户名" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">密码</label>
+                                    <input type="password" class="form-input" id="register-password" placeholder="请创建密码" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">确认密码</label>
+                                    <input type="password" class="form-input" id="register-confirm" placeholder="请再次输入密码" required>
+                                </div>
+                                <button type="submit" class="form-submit">注册</button>
+                                <div id="register-message" class="auth-message" style="display: none;"></div>
+                            </form>
+                        </div>
+                    </div>
+                `;
+                
+                // 添加标签切换功能
+                const loginTab = document.getElementById('login-tab');
+                const registerTab = document.getElementById('register-tab');
+                const loginForm = document.getElementById('login-form-container');
+                const registerForm = document.getElementById('register-form-container');
+                
+                loginTab.addEventListener('click', function() {
+                    loginTab.classList.add('active');
+                    registerTab.classList.remove('active');
+                    loginForm.style.display = 'block';
+                    registerForm.style.display = 'none';
+                });
+                
+                registerTab.addEventListener('click', function() {
+                    registerTab.classList.add('active');
+                    loginTab.classList.remove('active');
+                    registerForm.style.display = 'block';
+                    loginForm.style.display = 'none';
+                });
+                
+                // 添加登录表单提交事件
+                document.getElementById('login-form').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('login-username').value;
+                    const password = document.getElementById('login-password').value;
+                    const messageElement = document.getElementById('login-message');
+                    
+                    // 显示加载状态
+                    const submitButton = this.querySelector('.form-submit');
+                    const originalText = submitButton.textContent;
+                    submitButton.disabled = true;
+                    submitButton.textContent = '登录中...';
+                    
+                    try {
+                        const result = await API.auth.login(username, password);
+                        
+                        if (result.success) {
+                            // 登录成功
+                            messageElement.className = 'auth-message success';
+                            messageElement.textContent = '登录成功，正在跳转...';
+                            messageElement.style.display = 'block';
+                            
+                            // 刷新页面显示用户信息
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            // 登录失败
+                            messageElement.className = 'auth-message error';
+                            messageElement.textContent = result.message || '登录失败，请检查用户名和密码';
+                            messageElement.style.display = 'block';
+                            
+                            // 恢复按钮状态
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalText;
+                        }
+                    } catch (error) {
+                        console.error('登录错误:', error);
+                        messageElement.className = 'auth-message error';
+                        messageElement.textContent = '登录过程中发生错误，请重试';
+                        messageElement.style.display = 'block';
+                        
+                        // 恢复按钮状态
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }
+                });
+                
+                // 添加注册表单提交事件
+                document.getElementById('register-form').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('register-username').value;
+                    const password = document.getElementById('register-password').value;
+                    const confirm = document.getElementById('register-confirm').value;
+                    const messageElement = document.getElementById('register-message');
+                    
+                    // 检查两次输入的密码是否一致
+                    if (password !== confirm) {
+                        messageElement.className = 'auth-message error';
+                        messageElement.textContent = '两次输入的密码不一致';
+                        messageElement.style.display = 'block';
+                        return;
+                    }
+                    
+                    // 显示加载状态
+                    const submitButton = this.querySelector('.form-submit');
+                    const originalText = submitButton.textContent;
+                    submitButton.disabled = true;
+                    submitButton.textContent = '注册中...';
+                    
+                    try {
+                        const result = await API.auth.register(username, password);
+                        
+                        if (result.success) {
+                            // 注册成功
+                            messageElement.className = 'auth-message success';
+                            messageElement.textContent = '注册成功，正在登录...';
+                            messageElement.style.display = 'block';
+                            
+                            // 自动切换到登录状态
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            // 注册失败
+                            messageElement.className = 'auth-message error';
+                            messageElement.textContent = result.message || '注册失败，请尝试其他用户名';
+                            messageElement.style.display = 'block';
+                            
+                            // 恢复按钮状态
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalText;
+                        }
+                    } catch (error) {
+                        console.error('注册错误:', error);
+                        messageElement.className = 'auth-message error';
+                        messageElement.textContent = '注册过程中发生错误，请重试';
+                        messageElement.style.display = 'block';
+                        
+                        // 恢复按钮状态
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

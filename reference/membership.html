@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员中心 - 塔罗牌 AI 解牌</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/membership.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-left">
+                <a href="index.html" class="back-button">← 返回首页</a>
+            </div>
+            <div class="header-center">
+                <h1>会员中心</h1>
+            </div>
+            <div class="header-right">
+                <div id="user-info">
+                    <!-- 用户信息将在JS中加载 -->
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <section class="membership-container">
+                <div class="current-membership" id="current-membership">
+                    <!-- 当前会员信息 -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>加载会员信息...</p>
+                    </div>
+                </div>
+                
+                <div class="membership-plans">
+                    <h2>会员方案</h2>
+                    
+                    <div class="plan-cards">
+                        <div class="plan-card free">
+                            <div class="plan-header">
+                                <h3>免费用户</h3>
+                                <div class="plan-price">¥0</div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>每日5次提问</li>
+                                    <li>最多保存10条历史记录</li>
+                                    <li>基础牌阵</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <button class="plan-button" disabled>当前方案</button>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-card standard">
+                            <div class="plan-header">
+                                <h3>标准会员</h3>
+                                <div class="plan-price">¥28<span>/月</span></div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>每日20次提问</li>
+                                    <li>最多保存50条历史记录</li>
+                                    <li>全部牌阵</li>
+                                    <li>优先解读</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <button class="plan-button" id="upgrade-standard">升级</button>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-card premium">
+                            <div class="plan-header">
+                                <h3>高级会员</h3>
+                                <div class="ribbon">推荐</div>
+                                <div class="plan-price">¥68<span>/月</span></div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li>每日100次提问</li>
+                                    <li>最多保存200条历史记录</li>
+                                    <li>全部牌阵</li>
+                                    <li>专属解读</li>
+                                    <li>个性化指导</li>
+                                </ul>
+                            </div>
+                            <div class="plan-footer">
+                                <button class="plan-button" id="upgrade-premium">升级</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/membership.js"></script>
+</body>
+</html> 

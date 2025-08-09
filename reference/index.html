@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔罗牌 AI 解牌</title>
+    <link rel="stylesheet" href="css/tarot-app.css">
+    <style>
+        /* 底部导航样式 - 与profile.html保持一致 */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #888;
+            padding: 10px 0;
+        }
+        
+        .bottom-nav .nav-item.active {
+            color: var(--accent-gold, #d4af37);
+        }
+        
+        .bottom-nav .nav-item svg {
+            margin-bottom: 5px;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .bottom-nav .nav-item span {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="app-header">
+            <button class="header-button back-button">
+                <div class="circle-icon">↩</div>
+            </button>
+            <h1 class="app-title">塔塔巫</h1>
+            <div class="header-controls">
+                <button class="header-button menu-toggle">
+                    <div class="circle-icon">⋯</div>
+                </button>
+                <button class="header-button record-button">
+                    <div class="circle-icon">⚪</div>
+                </button>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="app-content">
+            <!-- 卡片区域 -->
+            <div class="card-showcase">
+                <div class="card-container">
+                    <img src="images/card-back.png" alt="塔罗牌" class="tarot-card">
+                </div>
+            </div>
+
+            <!-- 提示文字 -->
+            <div class="card-prompt">
+                <h2>点击卡牌 揭示问题的答案</h2>
+                <p>塔罗的神秘世界中命运不再是未知的迷雾</p>
+            </div>
+
+            <!-- 牌阵选择卡片 -->
+            <div class="reading-options">
+                
+                <div class="reading-card" id="three-card-layout">
+                    <div class="card-image multiple-cards">
+                        <div class="mini-card card-1"></div>
+                        <div class="mini-card card-2"></div>
+                        <div class="mini-card card-3"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-header">
+                            <h3>三牌阵</h3>
+                            <span class="tag hot">Hot</span>
+                        </div>
+                        <p class="card-subtitle">过去 现在 未来</p>
+                        <p class="card-description">犹若流淌的时间从过去延伸到未来，事件平铺于时间轴之上</p>
+                    </div>
+                </div>
+                
+                <div class="reading-card">
+                    <div class="card-image">
+                        <div class="mini-card celtic"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-header">
+                            <h3>凯尔特十字</h3>
+                            <span class="tag pro">Pro</span>
+                        </div>
+                        <p class="card-subtitle">全面解析 深度剖析</p>
+                        <p class="card-description">最经典的塔罗牌阵之一，全面而深入地分析问题的各个方面。</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部导航 - 修改为与profile.html一致的结构和样式 -->
+        <footer class="app-footer">
+            <nav class="bottom-nav">
+                <a class="nav-item active" href="#">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/>
+                    </svg>
+                    <span>探索</span>
+                </a>
+                <a class="nav-item" href="#" onclick="event.preventDefault();">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                        <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/>
+                    </svg>
+                    <span>达人解牌</span>
+                </a>
+                <a class="nav-item" href="profile.html">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>我的</span>
+                </a>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="js/tarot-app.js"></script>
+    <script>
+        // 确保DOM加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加"我的"页面导航事件
+            const profileLink = document.querySelector('.bottom-nav .nav-item[href="profile.html"]');
+            
+            if (profileLink) {
+                profileLink.addEventListener('click', function(e) {
+                    e.preventDefault(); // 阻止默认行为
+                    console.log('导航到个人页面');
+                    
+                    // 使用setTimeout确保事件处理完成后再导航
+                    setTimeout(function() {
+                        window.location.href = 'profile.html';
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

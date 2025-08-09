@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 塔罗牌 AI 解牌</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/history.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-left">
+                <a href="index.html" class="back-button">← 返回首页</a>
+            </div>
+            <div class="header-center">
+                <h1>历史对话记录</h1>
+            </div>
+            <div class="header-right">
+                <div id="user-info">
+                    <!-- 用户信息将在JS中加载 -->
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="history-container">
+                <div class="history-list" id="history-list">
+                    <!-- 历史记录将在JS中加载 -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>加载历史记录中...</p>
+                    </div>
+                </div>
+                
+                <div class="pagination" id="pagination">
+                    <!-- 分页控件将在JS中加载 -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html> 

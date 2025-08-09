@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 塔罗牌 AI 解牌</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>塔罗牌管理后台</h2>
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="users">用户管理</a></li>
+                    <li><a href="#" class="nav-link" data-page="histories">历史记录</a></li>
+                   
+                    <li><a href="index.html" class="nav-link">返回前台</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="admin-header-left">
+                    <h1 id="page-title">用户管理</h1>
+                </div>
+                <div class="admin-header-right">
+                    <div id="admin-user-info">
+                        <!-- 管理员信息 -->
+                    </div>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <!-- 用户管理面板 -->
+                <div class="admin-panel active" id="users-panel">
+                    <div class="panel-tools">
+                        <div class="search-box">
+                            <input type="text" id="user-search" placeholder="搜索用户...">
+                            <button id="user-search-btn">搜索</button>
+                        </div>
+                        <button class="primary-button" id="add-user-btn">添加用户</button>
+                    </div>
+                    
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>注册时间</th>
+                                    <th>会员等级</th>
+                                    <th>到期时间</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-table-body">
+                                <!-- 用户数据将通过JS加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination" id="users-pagination">
+                        <!-- 分页控件 -->
+                    </div>
+                </div>
+                
+                <!-- 历史记录面板 -->
+                <div class="admin-panel" id="histories-panel">
+                    <div class="panel-tools">
+                        <div class="search-box">
+                            <input type="text" id="history-search" placeholder="搜索历史记录...">
+                            <select id="history-user-filter">
+                                <option value="">所有用户</option>
+                                <!-- 用户选项将通过JS加载 -->
+                            </select>
+                            <button id="history-search-btn">搜索</button>
+                        </div>
+                        <button class="danger-button" id="batch-delete-btn">批量删除</button>
+                    </div>
+                    
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="select-all-histories"></th>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>用户</th>
+                                    <th>牌阵</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="histories-table-body">
+                                <!-- 历史记录数据将通过JS加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination" id="histories-pagination">
+                        <!-- 分页控件 -->
+                    </div>
+                </div>
+                
+                <!-- 统计数据面板 -->
+                <div class="admin-panel" id="statistics-panel">
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <div class="stat-title">总用户数</div>
+                            <div class="stat-value" id="total-users">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">付费会员</div>
+                            <div class="stat-value" id="paid-users">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">历史记录</div>
+                            <div class="stat-value" id="total-histories">--</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">今日请求</div>
+                            <div class="stat-value" id="today-requests">--</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-charts">
+                        <div class="chart-container">
+                            <h3>用户增长趋势</h3>
+                            <div class="chart" id="user-growth-chart">
+                                <!-- 图表将通过JS加载 -->
+                                <p class="chart-placeholder">图表加载中...</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <h3>会员分布</h3>
+                            <div class="chart" id="membership-chart">
+                                <!-- 图表将通过JS加载 -->
+                                <p class="chart-placeholder">图表加载中...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 用户编辑弹窗 -->
+    <div class="modal" id="user-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">编辑用户</h2>
+            <form id="user-form">
+                <div class="form-group">
+                    <label for="edit-username">用户名</label>
+                    <input type="text" id="edit-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-password">密码</label>
+                    <input type="password" id="edit-password" placeholder="留空保持不变">
+                </div>
+                <div class="form-group">
+                    <label for="edit-membership">会员等级</label>
+                    <select id="edit-membership">
+                        <option value="0">免费用户</option>
+                        <option value="1">标准会员</option>
+                        <option value="2">高级会员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-duration">会员时长 (月)</label>
+                    <input type="number" id="edit-duration" min="1" value="1">
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="edit-admin">
+                        管理员权限
+                    </label>
+                </div>
+                <input type="hidden" id="edit-user-id">
+                <div class="form-buttons">
+                    <button type="button" class="secondary-button" id="cancel-edit">取消</button>
+                    <button type="submit" class="primary-button">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 确认删除弹窗 -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <h2>确认操作</h2>
+            <p id="confirm-message">确定要执行此操作吗？</p>
+            <div class="form-buttons">
+                <button class="secondary-button" id="cancel-confirm">取消</button>
+                <button class="danger-button" id="confirm-action">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html> 

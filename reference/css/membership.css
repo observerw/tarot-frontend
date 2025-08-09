@@ -1,0 +1,224 @@
+/* 会员中心样式 */
+.membership-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.current-membership {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.membership-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.membership-status {
+    display: flex;
+    align-items: center;
+}
+
+.membership-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.badge-free {
+    background-color: #e0e0e0;
+    color: #616161;
+}
+
+.badge-standard {
+    background-color: #2196f3;
+    color: white;
+}
+
+.badge-premium {
+    background-color: #f57c00;
+    color: white;
+}
+
+.membership-details {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.detail-item {
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    color: #757575;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 会员方案 */
+.membership-plans {
+    margin-top: 40px;
+}
+
+.membership-plans h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.plan-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.plan-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.plan-header {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.free .plan-header {
+    background-color: #f5f5f5;
+}
+
+.standard .plan-header {
+    background-color: #e3f2fd;
+}
+
+.premium .plan-header {
+    background-color: #fff3e0;
+}
+
+.ribbon {
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    transform: rotate(45deg);
+    background-color: #f44336;
+    color: white;
+    padding: 5px 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.plan-price {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.plan-price span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.plan-features {
+    padding: 20px;
+}
+
+.plan-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.plan-features li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.plan-features li:before {
+    content: "✓";
+    color: #4caf50;
+    margin-right: 8px;
+}
+
+.plan-footer {
+    padding: 20px;
+    text-align: center;
+}
+
+.plan-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.free .plan-button {
+    background-color: #e0e0e0;
+    color: #616161;
+}
+
+.standard .plan-button {
+    background-color: #2196f3;
+    color: white;
+}
+
+.premium .plan-button {
+    background-color: #f57c00;
+    color: white;
+}
+
+.plan-button:hover:not([disabled]) {
+    opacity: 0.9;
+}
+
+.plan-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .membership-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .membership-status {
+        margin-bottom: 15px;
+    }
+    
+    .membership-details {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .plan-cards {
+        grid-template-columns: 1fr;
+    }
+} 

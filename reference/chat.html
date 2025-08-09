@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔罗牌 AI 对话 - 解牌</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-left">
+                <a href="index.html" class="back-button">← 返回</a>
+            </div>
+            <div class="header-center">
+                <h1 id="layout-title">塔罗对话</h1>
+            </div>
+            <div class="header-right"></div>
+        </header>
+        
+        <main>
+            <section class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message system">
+                        <div class="message-content">
+                            欢迎来到塔罗牌对话。请描述你想探索的问题，AI将为你提供指引。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tarot-area" id="tarot-area">
+                    <!-- 塔罗牌区域，初始隐藏 -->
+                </div>
+                
+                <div class="chat-input-container">
+                    <textarea id="chat-input" placeholder="输入你的问题..."></textarea>
+                    <button id="send-button" class="send-button">发送</button>
+                </div>
+                
+                <div class="draw-button-container" id="draw-button-container">
+                    <button id="draw-cards-button" class="primary-button" style="display: none;">开始抽牌</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/tarot.js"></script>
+    <script src="js/services/session-service.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html> 
